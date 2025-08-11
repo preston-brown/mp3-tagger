@@ -83,7 +83,7 @@ def get_tags(file_id):
 
 @app.patch("/api/file/<file_id>/tags")
 def patch_tags(file_id):
-    """Update a tag on the MP3 file. Right now we only support updating album and album artist since that's all I need."""
+    """Update a tag on the MP3 file."""
     if file_id not in uploaded_files:
         return '', 404
     upload_location = uploaded_files[file_id]
@@ -94,6 +94,14 @@ def patch_tags(file_id):
         audio_file.tag.album = value
     elif tag == 'album_artist':
         audio_file.tag.album_artist = value
+    elif tag == 'disc_num':
+        audio_file.tag.disc_num = value
+    elif tag == 'track_num':
+        audio_file.tag.track_num = value
+    elif tag == 'title':
+        audio_file.tag.title = value
+    elif tag == 'artist':
+        audio_file.tag.aritst = value
     else:
         return f'Invalid tag: {tag}', 400
     audio_file.tag.save()
